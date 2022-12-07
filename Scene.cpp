@@ -569,7 +569,7 @@ void CScene::Render(ID3D12GraphicsCommandList *pd3dCommandList, CCamera *pCamera
 	
 
 	if (m_ppShaders[1]) m_ppShaders[1]->Render(pd3dCommandList, pCamera);
-
+	if (m_ppShaders[0]) m_ppShaders[0]->Render(pd3dCommandList, pCamera);
 
 
 }
