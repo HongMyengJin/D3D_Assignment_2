@@ -622,13 +622,14 @@ void CGameFramework::FrameAdvance()
 
 		if (m_pScene) m_pScene->Render_Monster(m_pd3dCommandList, m_pCamera);
 		
-		if (m_pPlayer) m_pPlayer->Render(m_pd3dCommandList, m_pCamera);
+
 		
 
 		m_pLaplacianEdgeDetectionShader->OnPostRenderTarget(m_pd3dCommandList);
 
 		m_pd3dCommandList->OMSetRenderTargets(1, &m_pd3dSwapChainBackBufferRTVCPUHandles[m_nSwapChainBufferIndex], TRUE, NULL);
 		if (m_pScene) m_pScene->Render(m_pd3dCommandList, m_pCamera);
+		if (m_pPlayer) m_pPlayer->Render(m_pd3dCommandList, m_pCamera);
 		m_pLaplacianEdgeDetectionShader->Render(m_pd3dCommandList, m_pCamera, 0, &m_nDrawOptions);
 
 	}
