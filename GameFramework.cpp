@@ -598,7 +598,6 @@ void CGameFramework::FrameAdvance()
 		m_pLaplacianEdgeDetectionShader->OnPrepareRenderTarget(m_pd3dCommandList, 1, &m_pd3dSwapChainBackBufferRTVCPUHandles[m_nSwapChainBufferIndex], m_d3dDsvDescriptorCPUHandle);
 		if (m_pScene) m_pScene->Render(m_pd3dCommandList, m_pCamera);
 		if (m_pPlayer) m_pPlayer->Render(m_pd3dCommandList, m_pCamera);
-		if (m_pScene) m_pScene->RenderParticle(m_pd3dCommandList, m_pCamera);
 	
 
 		m_pLaplacianEdgeDetectionShader->OnPostRenderTarget(m_pd3dCommandList);
@@ -609,25 +608,27 @@ void CGameFramework::FrameAdvance()
 
 		UpdateShaderVariables();
 		
-		//m_pLaplacianEdgeDetectionShader->OnPrepareRenderTarget(m_pd3dCommandList, 1, &m_pd3dSwapChainBackBufferRTVCPUHandles[m_nSwapChainBufferIndex], m_d3dDsvDescriptorCPUHandle);
-		//if (m_pScene) m_pScene->Render(m_pd3dCommandList, m_pCamera);
-		//if (m_pPlayer) m_pPlayer->Render(m_pd3dCommandList, m_pCamera);
-		
-		
-
-		//m_pLaplacianEdgeDetectionShader->OnPostRenderTarget(m_pd3dCommandList);
 		//
 		m_pLaplacianEdgeDetectionShader->OnPrepareRenderTarget(m_pd3dCommandList, 1, &m_pd3dSwapChainBackBufferRTVCPUHandles[m_nSwapChainBufferIndex], m_d3dDsvDescriptorCPUHandle);
+		//if (m_pScene) m_pScene->Render(m_pd3dCommandList, m_pCamera);
+		//if (m_pPlayer) m_pPlayer->Render(m_pd3dCommandList, m_pCamera);
 
-		if (m_pScene) m_pScene->Render(m_pd3dCommandList, m_pCamera);
+
+		m_pLaplacianEdgeDetectionShader->OnPostRenderTarget(m_pd3dCommandList);
+
+
+		m_pLaplacianEdgeDetectionShader->OnPrepareRenderTarget(m_pd3dCommandList, 1, &m_pd3dSwapChainBackBufferRTVCPUHandles[m_nSwapChainBufferIndex], m_d3dDsvDescriptorCPUHandle);
+
+
+		if (m_pScene) m_pScene->Render_Monster(m_pd3dCommandList, m_pCamera);
 		
 		if (m_pPlayer) m_pPlayer->Render(m_pd3dCommandList, m_pCamera);
 		
 
 		m_pLaplacianEdgeDetectionShader->OnPostRenderTarget(m_pd3dCommandList);
-		
+
 		m_pd3dCommandList->OMSetRenderTargets(1, &m_pd3dSwapChainBackBufferRTVCPUHandles[m_nSwapChainBufferIndex], TRUE, NULL);
-		
+		if (m_pScene) m_pScene->Render(m_pd3dCommandList, m_pCamera);
 		m_pLaplacianEdgeDetectionShader->Render(m_pd3dCommandList, m_pCamera, 0, &m_nDrawOptions);
 
 	}
